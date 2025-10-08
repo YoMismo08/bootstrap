@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+</head>
+<body>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Menu</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link active" aria-current="page" href="principal.html">Productos</a>
+        <a class="nav-link" href="cuenta.html">Cuenta Pixel</a>
+        <a class="nav-link" href="about.html">Sobre nosotros</a>
+        <a class="nav-link disabled">Otros productos (proximamente)</a>
+
+      </div>
+    </div>
+  </div>
+</nav>
+
+    <h2>Registro</h2>
+    <input type="text" id="regUser" placeholder="Usuario"><br/>
+    <input type="password" id="regPass" placeholder="Contraseña"><br/>
+    <button onclick="register()">Registrar</button>
+
+    <h1>Iniciar sessió</h1>
+        <label for="Usuari">Usuari</label><br>
+        <input type="text" id="usuari"><br>
+        <label for="">Contrassenya</label><br>
+        <input type="text" id="contrassenya"><br>
+        <button type="button" onclick="validarLogin()">Inicia sessió</button>
+
+    <script>
+        function register(){
+        const user = document.getElementById("regUser").value;
+        const pass = document.getElementById("regPass").value;
+
+        //Comprobar campos vacíos
+        if (user===""||pass===""){
+        alert("Rellena todos los campos");
+        return;
+        }
+
+        //Recuperar usuarios guardados
+        let users = localStorage.getItem("users");
+        users = users ? JSON.parse(users) : {};
+
+        //Cpmprobar si existe el usuario
+        if (users[user]){
+        alert("El usuario ya existe")
+        }
+}
+        //Guardar usuario
+        users[user] = pass;
+        localStorage.setItem("users", JSON.stringify(users));
+        alert("se ha creado el usuario. puedes iniciar sesion");
+
+
+                    function validarLogin(){
+                const usuari = document.getElementById("usuari").value;
+                const contrassenya = document.getElementById("contrassenya").value;
+
+                if (usuari == ""){
+                    alert ("El camp d'usuari és obligatori")
+                    return;
+                }
+                if (contrassenya == ""){
+                    alert ("El camp contrassenya és obligatori")
+                    return;
+                }
+                if (usuari == users && contrassenya == CONTRASSENYA_VALID){
+                    alert ("Login correcte");
+                    window.location.href = "https://www.marca.com/";
+                } else {
+                    alert("Usuari o contrassenya incorrectes");
+                }
+            
+    }
+    </script>
+</body>
+</html>
