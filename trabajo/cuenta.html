@@ -8,9 +8,10 @@
 
 </head>
 <body>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Menu</a>
+    <p id="usuarioInfo"></p>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -20,7 +21,6 @@
         <a class="nav-link" href="cuenta.html">Cuenta Pixel</a>
         <a class="nav-link" href="about.html">Sobre nosotros</a>
         <a class="nav-link disabled">Otros productos (proximamente)</a>
-
       </div>
     </div>
   </div>
@@ -31,11 +31,11 @@
     <input type="password" id="regPass" placeholder="Contraseña"><br/>
     <button onclick="register()">Registrar</button>
 
-    <h1>Iniciar sessió</h1>
+    <h2>Iniciar sessió</h2>
         <label for="Usuari">Usuari</label><br>
         <input type="text" id="usuari"><br>
-        <label for="">Contrassenya</label><br>
-        <input type="text" id="contrassenya"><br>
+        <label for="contrassenya">Contrassenya</label><br>
+        <input type="password" id="contrassenya"><br>
         <button type="button" onclick="validarLogin()">Inicia sessió</button>
 
     <script>
@@ -45,7 +45,7 @@
 
         //Comprobar campos vacíos
         if (user===""||pass===""){
-        alert("Rellena todos los campos");
+        alert("Ompli tots els camps");
         return;
         }
 
@@ -55,34 +55,39 @@
 
         //Cpmprobar si existe el usuario
         if (users[user]){
-        alert("El usuario ya existe")
+        alert("L'usuari ja existeix");
+        return;
         }
-}
+
         //Guardar usuario
         users[user] = pass;
         localStorage.setItem("users", JSON.stringify(users));
-        alert("se ha creado el usuario. puedes iniciar sesion");
+        alert("S'ha creat l'usuari. Pots iniciar sessió");
+      }
+      function validarLogin(){
+        const usuari = document.getElementById("usuari").value;
+        const contrassenya = document.getElementById("contrassenya").value;
 
+          if (usuari == ""){
+            alert ("El camp d'usuari és obligatori")
+            return;
+          }
+          if (contrassenya == ""){
+            alert ("El camp contrassenya és obligatori")
+            return;
+          }
+          
+          let users = localStorage.getItem("users");
+          users = users ? JSON.parse(users) : {};
 
-                    function validarLogin(){
-                const usuari = document.getElementById("usuari").value;
-                const contrassenya = document.getElementById("contrassenya").value;
+          if (users[usuari] && users[usuari] === contrassenya) {
+            alert ("Inici de sessió correcte");
+            localStorage.setItem("usuarioiniciado", usuari);
+            window.location.href = "principal.html"
+          }else {
+            alert("Usuario o contrassenya incorrectes");
+          }    
 
-                if (usuari == ""){
-                    alert ("El camp d'usuari és obligatori")
-                    return;
-                }
-                if (contrassenya == ""){
-                    alert ("El camp contrassenya és obligatori")
-                    return;
-                }
-                if (usuari == users && contrassenya == CONTRASSENYA_VALID){
-                    alert ("Login correcte");
-                    window.location.href = "https://www.marca.com/";
-                } else {
-                    alert("Usuari o contrassenya incorrectes");
-                }
-            
     }
     </script>
 </body>
